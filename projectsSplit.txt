@@ -1,0 +1,20 @@
+Project 1 - send out invites via email
+invite to the github organization, discord server, and clickup organization (focus on github and discord for now)
+
+Project 1.1 - send reminder emails every 5 days or something. run the script manually is the better idea.
+who receives this email depends on the script
+make an email and for each false statement in the joined_discord/clickup/github columns of the csv,
+have a string saying "Reminder to join our discord/clickup/github inser_link_here" and add this string ot the email
+max 3 of these strings for each one basically.
+
+
+Project 2 - assign roles once in discord, use a bot for this.
+- assign their real name to their server name
+- assign them to the proper text channels based on team and role
+
+Project 3 - assign them to a team in github org
+
+Project 4 - make a more advanced bot that implements chatGPT 3. something into the server so anyone can ask questions,
+team leads can see who is struggling with what indirectly
+problems - ppl are too embarassed to show their weaknesses
+I guess we can have a public one, and a less public one but then no one will use the public one. ill see
