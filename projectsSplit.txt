@@ -1,6 +1,9 @@
 Project 1 - send out invites via email
 invite to the github organization, discord server, and clickup organization (focus on github and discord for now)
 
+3 statuses - pending invite, no invite, joined
+-1 means no invite, 0 means pending invite, 1 means joined
+
 Project 1.1 - send reminder emails every 5 days or something. run the script manually is the better idea.
 who receives this email depends on the script
 make an email and for each false statement in the joined_discord/clickup/github columns of the csv,
@@ -18,3 +21,8 @@ Project 4 - make a more advanced bot that implements chatGPT 3. something into t
 team leads can see who is struggling with what indirectly
 problems - ppl are too embarassed to show their weaknesses
 I guess we can have a public one, and a less public one but then no one will use the public one. ill see
+
+
+tips for the project:
+structure of a repository
+https://medium.com/code-factory-berlin/github-repository-structure-best-practices-248e6effc405
