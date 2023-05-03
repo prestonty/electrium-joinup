@@ -1,107 +1,100 @@
-// const csv = require('csv-parser');
-// const fs = require('fs');
-
-// // Read the CSV file
-// fs.createReadStream('Test2.csv')
-//   .pipe(csv())
-//   .on('info', (info) => { // 'data' was previous string ////// keep this is mind!!!
-//     results.push(info);
-//   })
-//   .on('end', () => {
-//     // Create a JSON object
-//     const info = {};
-
-//     // Populate the JSON object
-//     for (const row of results) {
-//         info[row.id] = {
-//         first_Name: row.first_Name,
-//         last_Name: row.last_Name,
-//         email: row.email,
-//         github: row.github,
-//         discord_username: row.discord_username,
-//         project_Team: row.project_Team,
-//         sub_Team: row.sub_Team,
-//         joined_Discord: row.joined_Discord,
-//         joined_Clickup: row.joined_Clickup,
-//         joined_Github: row.joined_Github
-//       };
-//     }
-
-// });
-
-// // CHAT GPT SUCKSS!!!
-// const username = '';
-// const email = 'email_of_user_to_invite@example.com';
-// const url = `https://api.github.com/orgs/${org}/invitations`;
-// const info2 = { email, invitee_login: username };
-// axios.post(url, info2, { headers })
-//   .then(response => {
-//     console.log(`Successfully invited ${username} to ${org} organization.`);
-//   })
-//   .catch(error => {
-//     console.error(`Failed to invite ${username} to ${org} organization. Error: ${error.message}`);
-//   });
-
-
-
 // env file
 require("dotenv").config();
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const { Octokit } = require("@octokit/core");
 
+const csv = require("csv-parser");
+const fs = require("fs");
 
-async function sendInvitation() {
-    const octokit = new Octokit({
-        auth: process.env.TOKEN // this is the token of an admin
-    })
+const results = [];
 
-    // testing
-    // console.log("TEAM TESTING");
-    // console.log(response.data);
-
-    // get the team id 
-    // let role;
-    // for(const item of response.data) {
-    //     if(item.team && process.env.ROLE.localeCompare(item.team.name) == 0) { // zero means true (first condition checks if it is not undefined)
-    //         role = item.team.id;
-    //         console.log(item.team.name);
-    //         console.log("ROLE: " + role);
-    //     }
-    // }
-    // console.log("ROLE: " + role);
-
-    // retrieve the team_id
-
-    // const team = await octokit.teams.getByName({
-    // org: 'Electrium-Mobility',
-    // team_slug: process.env.ROLE, // gets id based on user's inputted role
-    // });
-    // let team_id = team.data.id;
-
-
-    // adds to the organization
-    await octokit.request('POST /orgs/{org}/invitations', {
-        org: 'Electrium-Mobility',
-        email: process.env.RECEIVER_USER,
-        role: 'direct_member',
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28'
-        }
-    })
-
-    // add to a team
-  await octokit.request('PUT /orgs/{org}/teams/{team_slug}/memberships/{username}', {
-    org: 'Electrium-Mobility',
-    team_slug: process.env.ROLE, // the name of the team
-    username: process.env.GIT_USER,
-    role: process.env.ROLE,
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
+// Read the CSV file
+fs.createReadStream("Test2.csv")
+  .pipe(csv())
+  .on("data", (data) => {
+    results.push(data);
   })
+  .on("end", () => {
+    // Create a JSON object
+    const data = {};
 
+    // Populate the JSON object
+    for (const row of results) {
+      data[row.id] = {
+        name: row.name,
+        email: row.email,
+        github: row.github,
+        discord_username: row.discord_username,
+        team: row.team,
+        project: row.project,
+        joined_Discord: row.joined_Discord,
+        joined_Clickup: row.joined_Clickup,
+        joined_Github: row.joined_Github,
+      };
+
+      console.log(row.email, row.team, row.github);
+      sendInvitation(row.email, row.team, row.github);
+      console.log("Invite sent for " + row.first_Name + "\n");
+
+      // catch errors here
+      data[8].row.joined_Github = 0; // send invite
+
+      csvWriter
+        .writeRecords(data)
+        .then(() => console.log("The CSV file was updated successfully"));
+    }
+  });
+
+async function sendInvitation(receiver_email, team_name, github_user) {
+  const octokit = new Octokit({
+    auth: process.env.TOKEN, // this is the token of an admin for the organization
+  });
+
+  // invite to organization
+  await octokit.request("POST /orgs/{org}/invitations", {
+    org: "Electrium-Mobility",
+    email: receiver_email,
+    role: "direct_member",
+    headers: {
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+
+  // invite to team
+  await octokit.request(
+    "PUT /orgs/{org}/teams/{team_slug}/memberships/{username}",
+    {
+      org: "Electrium-Mobility",
+      team_slug: team_name, // the name of the team
+      username: github_user,
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    }
+  );
 }
 
-// call the async function
-sendInvitation();
+// write to csv file
+const createCsvWriter = require("csv-writer").createObjectCsvWriter;
+const csvWriter = createCsvWriter({
+  path: "Test2.csv",
+  header: [
+    { id: "first_Name", title: "first_Name" },
+    { id: "last_Name", title: "last_Name" },
+    { id: "email", title: "email" },
+    { id: "github", title: "github" },
+    { id: "discord_username", title: "discord_username" },
+    { id: "team", title: "team" },
+    { id: "project", title: "project" },
+    { id: "joined_Github", title: "joined_Github" },
+    { id: "joined_Discord", title: "joined_Discord" },
+    { id: "joined_Clickup", title: "joined_Clickup" },
+  ],
+  append: true, // set to true to append to an existing file
+});
+
+// const data = [
+//   {name: 'Alice', age: '28', gender: 'Female'},
+//   {name: 'Bob', age: '35', gender: 'Male'},
+// ];
