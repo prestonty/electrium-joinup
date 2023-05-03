@@ -21,3 +21,8 @@ Project 4 - make a more advanced bot that implements chatGPT 3. something into t
 team leads can see who is struggling with what indirectly
 problems - ppl are too embarassed to show their weaknesses
 I guess we can have a public one, and a less public one but then no one will use the public one. ill see
+
+
+tips for the project:
+structure of a repository
+https://medium.com/code-factory-berlin/github-repository-structure-best-practices-248e6effc405

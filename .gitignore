@@ -1,0 +1,5 @@
+# ignores the credential folder and package folder
+node_modules/
+credentials/
+# ignores all env files (extra safe)
+.env

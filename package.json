@@ -1,7 +1,9 @@
 {
   "dependencies": {
-    "csv-parse": "^5.3.6",
+    "@octokit/core": "^4.2.0",
+    "@octokit/rest": "^19.0.7",
     "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.3",
     "nodemailer": "^6.9.1"
   }
 }

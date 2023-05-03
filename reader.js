@@ -1,31 +1,80 @@
-const csv = require('csv-parser');
-const fs = require('fs');
+// CODE DOES NOT WORK
 
-// Read the CSV file using fs module
-fs.createReadStream('Test2.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    // Process each row of data
+// const csv = require('csv-parser');
+// const fs = require('fs');
+// // reads .env file and makes the variables accessible through process.env
+// require("dotenv").config();
+
+// const results = [];
+
+// // adds a module
+//   const nodemailer = require('nodemailer');
+
+//   let transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//       user: process.env.USER,
+//       pass: process.env.PASS
+//   }
+//   });
+
+//   console.log("credentials");
+//   console.log(process.env.USER);
+//   console.log(process.env.PASS);
+
+// // Read the CSV file
+// fs.createReadStream('Test2.csv')
+//   .pipe(csv())
+//   .on('data', (data) => {
+//     results.push(data);
+//   })
+//   .on('end', () => {
+//     // Create a JSON object
+//     const data = {};
+
+//     // Populate the JSON object
+//     for (const row of results) {
+//       data[row.id] = {
+//         first_Name: row.first_Name,
+//         last_Name: row.last_Name,
+//         email: row.email,
+//         github: row.github,
+//         discord_username: row.discord_username,
+//         project_Team: row.project_Team,
+//         sub_Team: row.sub_Team,
+//         joined_Discord: row.joined_Discord,
+//         joined_Clickup: row.joined_Clickup,
+//         joined_Github: row.joined_Github
+//       };
+//     }
+
+//     // const myObj = JSON.parse(data);
+
+//     // run for each object in results
+//     for(const row of results) {
+//       // making the message and sending the email
+//       console.log("email debugging\nemail: " + row.email + "\nname: " + row.first_Name + " " + row.last_Name);
+//       const mailOptions = {
+//         from: 'Preston',
+//         to: row.email, // this is wrong, fix
+//         subject: 'Join the Electrium Family',
+//         text: "Github Link: (insert) \nClickup Link: (insert) \nThis you?" + row.first_Name + " " + row.last_Name + "????"
+//         };
+      
+//         // send the email
+//       transporter.sendMail(mailOptions, function(error, info){
+//         if (error) {
+//           console.log(error);
+//         } else {
+//           console.log('Email sent: ' + info.response);
+//         }
+//       });
+//     }
+
     
-    // for each item, send an email based on their last tags
-    const dataArr = row.split(',');
-    const person = {
-      first_Name: dataArr[0],
-      last_Name: dataArr[1],
-      email: dataArr[2],
-      github: dataArr[3],
-      discord_username: dataArr[4],
-      project_Team: dataArr[5],
-      sub_Team: dataArr[6],
-      joined_Discord: dataArr[7],
-      joined_Clickup: dataArr[8],
-      joined_Github: dataArr[9]
-    };
-    console.log("1111 " + dataArr[0]);
-    console.log("BREAKBREAK");
-    console.log(row);
-  })
-  .on('end', () => {
-    // Handle end of CSV file
-    console.log('CSV file successfully processed.');
-  });
+
+//   });
+
+
+  
+
