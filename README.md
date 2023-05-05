@@ -2,10 +2,7 @@
 ## Invite Email
 
 ### Installing packages
-Run ` npm install octokit`
-Run `npm install dotenv`
-Run `npm install csv-parser`
-Run `npm install csv-writer`
+Run ` npm install`
 
 ### Setup
 For csv reader and writer, replace the csv file name with your own (Replace Test2.csv)
